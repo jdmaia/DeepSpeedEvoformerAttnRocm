@@ -14,8 +14,10 @@ class EvoformerAttnBuilder(CUDAOpBuilder):
     def __init__(self, name=None):
         name = self.NAME if name is None else name
         super().__init__(name=name)
-        self.cutlass_path = os.environ.get('CUTLASS_PATH')
-
+        if self.is_rocm_pytorch():
+            self.cutlass_path = os.environ.get('CK_PATH')
+        else
+            self.cutlass_path = os.environ.get('CUTLASS_PATH')
     def absolute_name(self):
         return f'deepspeed.ops.{self.NAME}_op'
 
